@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -19,53 +19,33 @@
 
     <div class="toolbar">
       <a class="btn ghost" href="index.html">トップへ戻る</a>
-      <span class="toolbar-note">カード・敵・デッキ設定の入口（まずはカード編集から）。</span>
+      <span class="toolbar-note">カード・敵・デッキなどゲーム設定はデータファイルで管理します。</span>
     </div>
 
     <main class="panel">
       <section class="intro">
-        <p class="eyebrow">All Cards</p>
-        <h1>カード編集</h1>
-        <p class="lede">カードの追加・削除・内容編集を行い、ブラウザに保存します。ゲーム用のエクスポートは後で追加できます。</p>
+        <p class="eyebrow">Data Driven</p>
+        <h1>カード読込ビュー</h1>
+        <p class="lede">CSV/JSONからカード設定を読み込み、内容を確認します。編集はデータファイル側で行ってください。</p>
+      </section>
+
+      <section class="data-box">
+        <h2>データ読み込み</h2>
+        <p class="hint">対応形式: JSON（配列オブジェクト） または CSV（id,title,cost,type,text）。</p>
+        <input type="file" id="fileInput" accept=".json,.csv" class="file-input">
+        <p class="hint">データを読み込むと下の一覧が更新されます。ブラウザには保存しません。</p>
       </section>
 
       <section class="card-editor">
-        <form id="cardForm" class="form">
-          <input type="hidden" id="cardId">
-          <div class="field">
-            <label for="cardTitle">カード名</label>
-            <input id="cardTitle" name="title" type="text" required placeholder="例: テンペスト">
-          </div>
-          <div class="field two-col">
-            <div>
-              <label for="cardCost">コスト</label>
-              <input id="cardCost" name="cost" type="number" min="0" value="0">
-            </div>
-            <div>
-              <label for="cardType">タイプ</label>
-              <input id="cardType" name="type" type="text" placeholder="例: スペル">
-            </div>
-          </div>
-          <div class="field">
-            <label for="cardText">効果テキスト</label>
-            <textarea id="cardText" name="text" rows="3" placeholder="例: 敵に3ダメージ。呪文を既に使っていればエナジー+1。"></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn primary" id="saveButton">カードを保存</button>
-            <button type="button" class="btn ghost" id="resetButton">入力をリセット</button>
-          </div>
-          <p class="hint">保存するとローカルストレージに残ります。ゲームへの反映は後で調整してください。</p>
-        </form>
-
         <div class="list-head">
-          <h2>カード一覧</h2>
+          <h2>カード一覧（読み取り専用）</h2>
           <span id="listCount" class="status small">0件</span>
         </div>
-        <ul id="cardList" class="card-list" aria-label="保存されたカード一覧"></ul>
+        <ul id="cardList" class="card-list" aria-label="カード一覧"></ul>
       </section>
     </main>
 
-    <footer class="foot">敵設定・デッキ設定は後で追加します</footer>
+    <footer class="foot">敵設定・デッキ設定は後で同様にデータファイル対応を追加します</footer>
   </div>
 
   <script src="scripts/cards.js"></script>
