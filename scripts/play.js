@@ -99,19 +99,33 @@ function renderHand(hand) {
     const li = document.createElement("li");
     li.className = "hand-card";
 
-    const header = document.createElement("header");
+    const top = document.createElement("div");
+    top.className = "card-top";
+    const cost = document.createElement("span");
+    cost.className = "card-cost";
+    cost.textContent = Number(card.cost) || 0;
     const title = document.createElement("span");
+    title.className = "card-title";
     title.textContent = card.title || "(名称未設定)";
-    const meta = document.createElement("span");
-    meta.className = "badge";
-    meta.textContent = `${card.type || "タイプ未設定"} / コスト ${Number(card.cost) || 0}`;
-    header.append(title, meta);
+    const type = document.createElement("span");
+    type.className = "card-type-tag";
+    type.textContent = card.type || "タイプ未設定";
+    top.append(cost, title, type);
 
-    const body = document.createElement("div");
-    body.className = "body";
+    const illust = document.createElement("div");
+    illust.className = "card-illustration";
+
+    const bottom = document.createElement("div");
+    bottom.className = "card-bottom";
+    const sub = document.createElement("div");
+    sub.className = "card-sub";
+    sub.textContent = "PARALLEL SPACETIME";
+    const body = document.createElement("p");
+    body.className = "card-text";
     body.textContent = card.text || "効果テキストなし";
+    bottom.append(sub, body);
 
-    li.append(header, body);
+    li.append(top, illust, bottom);
     playerHand.appendChild(li);
   });
 }

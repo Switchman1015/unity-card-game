@@ -1,0 +1,22 @@
+﻿{
+  "turn": 1,
+  "stage": "Astropolis",
+  "player": {
+    "name": "プレイヤー",
+    "hp": 20,
+    "maxHp": 25,
+    "shield": 3,
+    "energy": 3,
+    "hand": [
+      { "id": "c1", "title": "テンペスト", "cost": 2, "type": "スペル", "text": "敵に3ダメージ。既に呪文を使っていればエナジー+1。" },
+      { "id": "c2", "title": "鉄壁", "cost": 1, "type": "防御", "text": "シールドを5得る。連続して防御を使っていれば+2。" },
+      { "id": "c3", "title": "急襲", "cost": 0, "type": "スキル", "text": "カードを1枚引く。このターン最初なら敵に1ダメージ。" }
+    ]
+  },
+  "enemies": [
+    { "id": "e1", "name": "センチネル", "hp": 18, "maxHp": 22, "shield": 0, "energy": 2, "intent": "次ターン: 4ダメージ" },
+    { "id": "e2", "name": "ゴーレム", "hp": 15, "maxHp": 18, "shield": 2, "energy": 1, "intent": "防御+攻撃" },
+    { "id": "e3", "name": "コボルト", "hp": 12, "maxHp": 12, "shield": 0, "energy": 3, "intent": "毒付与" }
+  ],
+  "log": ["対戦開始", "プレイヤーはエナジー3を得た", "敵は次の攻撃を準備している"]
+}
