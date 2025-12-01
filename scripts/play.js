@@ -1,5 +1,7 @@
 ﻿const turnLabel = document.getElementById("turnLabel");
 const enemyIntent = document.getElementById("enemyIntent");
+const enemyName = document.getElementById("enemyName");
+const playerName = document.getElementById("playerName");
 const playerHP = document.getElementById("playerHP");
 const enemyHP = document.getElementById("enemyHP");
 const playerShield = document.getElementById("playerShield");
@@ -9,7 +11,7 @@ const enemyEnergy = document.getElementById("enemyEnergy");
 const playerHand = document.getElementById("playerHand");
 const logList = document.getElementById("logList");
 
-// JSONで外部管理する場合は window.MIXED_STATE などに注入してください。
+// JSONで外部管理する場合は window.MIXED_STATE に上書きしてください。
 const sampleState = {
   turn: 1,
   player: {
@@ -100,6 +102,8 @@ function renderState(state) {
   const s = state || {};
   turnLabel.textContent = `Turn ${s.turn ?? "-"}`;
   enemyIntent.textContent = s.enemy?.intent || "-";
+  playerName.textContent = s.player?.name || "プレイヤー";
+  enemyName.textContent = s.enemy?.name || "敵";
 
   renderHP(playerHP, s.player?.hp ?? 0, s.player?.maxHp ?? s.player?.hp ?? 0);
   renderHP(enemyHP, s.enemy?.hp ?? 0, s.enemy?.maxHp ?? s.enemy?.hp ?? 0);
@@ -112,7 +116,7 @@ function renderState(state) {
 }
 
 function loadState() {
-  // window.MIXED_STATE に上書きしたい状態をセットすればそのまま表示できます。
+  // window.MIXED_STATE に外部から注入した状態をセットすればそのまま表示されます。
   return window.MIXED_STATE || sampleState;
 }
 

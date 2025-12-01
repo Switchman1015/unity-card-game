@@ -294,11 +294,12 @@ body {
 /* Play screen */
 .play-layout {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 12px;
+  grid-template-columns: 1fr 180px 1fr;
+  align-items: center;
+  gap: 18px;
 }
 
-.panel-box {
+.battle-stage .side {
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 14px;
@@ -307,34 +308,57 @@ body {
   gap: 10px;
 }
 
-.stat-grid {
+.side-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.side-name {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.arena {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 8px;
+  place-items: center;
+  gap: 10px;
 }
 
-.stat {
-  padding: 10px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
+.arena-mark {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.hand-area,
+.log-area {
   border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  display: grid;
+  gap: 10px;
 }
 
-.hand-list,
-.log-list {
+.hand-row {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
 }
 
-.hand-card,
-.log-item {
+.hand-card {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.03);
+  display: grid;
+  gap: 6px;
 }
 
 .hand-card header {
@@ -346,8 +370,22 @@ body {
 
 .hand-card .body {
   color: var(--muted);
-  margin-top: 6px;
   line-height: 1.4;
+}
+
+.log-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.log-item {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .token-row {
