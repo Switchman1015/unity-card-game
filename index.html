@@ -7,48 +7,45 @@
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <div class="bg"></div>
-  <header class="top">
-    <div class="brand">
-      <span class="brand-mark">AC</span>
-      <div class="brand-copy">
-        <span class="brand-name">Arcane Conflux</span>
-        <span class="brand-meta">プロトタイプ</span>
+  <div class="wrap">
+    <header class="brand">
+      <span class="logo">AC</span>
+      <div class="brand-text">
+        <span class="name">Arcane Conflux</span>
+        <span class="meta">プロトタイプ</span>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="panel">
-    <section class="intro">
-      <p class="eyebrow">オリジナル カードゲーム</p>
-      <h1>タップで開始</h1>
-      <p class="lede">デッキを組んで、効果をつないで、ライバルを上回る。まずはタイトル画面から始めましょう。</p>
-    </section>
+    <main class="panel">
+      <section class="intro">
+        <p class="eyebrow">オリジナル カードゲーム</p>
+        <h1>ゲームスタート</h1>
+        <p class="lede">スマホで気軽に遊べるカードゲーム。まずはタイトルからスタートしてください。</p>
+      </section>
 
-    <div class="cta-block">
-      <button id="startButton" class="btn primary">ゲームスタート</button>
-      <button class="btn ghost" type="button">デッキ管理（準備中）</button>
-      <p class="hint">画面をタップ、またはEnterキーでも開始できます。</p>
-      <p id="statusPill" class="status">待機中</p>
-    </div>
+      <section class="actions">
+        <button id="startButton" class="btn primary">タップして開始</button>
+        <button class="btn ghost" type="button" aria-disabled="true">デッキ管理（準備中）</button>
+        <p class="hint">Enterキーでも開始できます</p>
+        <p id="statusPill" class="status">待機中</p>
+      </section>
 
-    <section class="card-preview" aria-label="カードイメージ">
-      <div class="card">
-        <div class="card-header">
-          <span class="card-label">サンプル</span>
-          <span class="card-cost">コスト 2</span>
+      <section class="card-preview" aria-label="カードイメージ">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-label">サンプル</span>
+            <span class="card-cost">コスト 2</span>
+          </div>
+          <div class="card-body">
+            <p class="card-title">テンペスト</p>
+            <p class="card-text">敵に3ダメージ。今ターンすでに呪文を使っていればエナジー+1。</p>
+          </div>
         </div>
-        <div class="card-body">
-          <p class="card-title">テンペスト</p>
-          <p class="card-text">敵に3ダメージ。今ターンすでに呪文を使っていればエナジー+1。</p>
-        </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <footer class="foot">
-    <span>アート・サウンドは後で差し替え</span>
-  </footer>
+    <footer class="foot">アート・サウンドは後で差し替え予定です</footer>
+  </div>
 
   <script src="scripts/main.js"></script>
 </body>

@@ -17,7 +17,7 @@ function startGame() {
   setTimeout(() => {
     setStatus("準備完了: ゲームシーンへ遷移してください");
     startButton.disabled = false;
-    startButton.textContent = "ゲームスタート";
+    startButton.textContent = "タップして開始";
     isStarting = false;
   }, 800);
 }
