@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIXED. | プレイ画面</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230c111b'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='28' fill='%237ee0ff' font-family='sans-serif'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <span class="logo">MX</span>
+      <div class="brand-text">
+        <span class="name">MIXED.</span>
+        <span class="meta">プレイ画面</span>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <a class="btn ghost" href="index.html">タイトルへ戻る</a>
+      <span class="toolbar-note">データはJSONで管理・読み込み。UIでの編集は行いません。</span>
+    </div>
+
+    <main class="panel">
+      <section class="intro">
+        <p class="eyebrow">Battle</p>
+        <h1>対戦ビュー</h1>
+        <p class="lede">JSONのゲーム状態を読み込み、盤面に反映します。初期状態はサンプルデータです。</p>
+      </section>
+
+      <section class="data-box">
+        <h2>JSONを読み込む</h2>
+        <p class="hint">対応形式: プレイ状態を表すJSON（例: {"turn":1,"player":{...},"enemy":{...},"log":[...]})</p>
+        <input type="file" id="stateFile" accept=".json" class="file-input">
+        <p class="hint">読み込むと即座に画面に反映されます。編集はファイル側で行ってください。</p>
+      </section>
+
+      <section class="play-layout">
+        <div class="panel-box">
+          <div class="list-head">
+            <h2>プレイヤー</h2>
+            <span id="turnLabel" class="status small">Turn 1</span>
+          </div>
+          <div id="playerStats" class="stat-grid"></div>
+          <div>
+            <h3>手札</h3>
+            <ul id="playerHand" class="hand-list"></ul>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="list-head">
+            <h2>敵</h2>
+            <span id="enemyIntent" class="status small">-</span>
+          </div>
+          <div id="enemyStats" class="stat-grid"></div>
+          <div>
+            <h3>ログ</h3>
+            <ul id="logList" class="log-list"></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">カード・敵・デッキはJSONファイルで管理し、ここで確認します</footer>
+  </div>
+
+  <script src="scripts/play.js"></script>
+</body>
+</html>

@@ -1,11 +1,11 @@
-const fileInput = document.getElementById("fileInput");
+﻿const fileInput = document.getElementById("fileInput");
 const listEl = document.getElementById("cardList");
 const listCount = document.getElementById("listCount");
 
 const sampleCards = [
   { id: "c1", title: "テンペスト", cost: 2, type: "スペル", text: "敵に3ダメージ。既に呪文を使っていればエナジー+1。" },
   { id: "c2", title: "鉄壁", cost: 1, type: "防御", text: "シールドを5得る。連続して防御を使っていれば+2。" },
-  { id: "c3", title: "急襲", cost: 0, type: "スキル", text: "カードを1枚引く。このターン最初に使うカードなら敵に1ダメージ。" },
+  { id: "c3", title: "急襲", cost: 0, type: "スキル", text: "カードを1枚引く。このターン最初なら敵に1ダメージ。" },
 ];
 
 let cards = [...sampleCards];
@@ -88,7 +88,6 @@ function handleFile(text, name) {
     } else if (name.endsWith(".csv")) {
       cards = parseCsv(text);
     } else {
-      // 試しにJSONとして読む
       cards = parseJson(text);
     }
     renderList();
