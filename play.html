@@ -19,21 +19,14 @@
 
     <div class="toolbar">
       <a class="btn ghost" href="index.html">タイトルへ戻る</a>
-      <span class="toolbar-note">データはJSONで管理・読み込み。UIでの編集は行いません。</span>
+      <span class="toolbar-note">データはJSONで管理し、この画面に読み込まれます（ファイル選択は不要）。</span>
     </div>
 
     <main class="panel">
       <section class="intro">
         <p class="eyebrow">Battle</p>
         <h1>対戦ビュー</h1>
-        <p class="lede">JSONのゲーム状態を読み込み、盤面に反映します。初期状態はサンプルデータです。</p>
-      </section>
-
-      <section class="data-box">
-        <h2>JSONを読み込む</h2>
-        <p class="hint">対応形式: プレイ状態を表すJSON（例: {"turn":1,"player":{...},"enemy":{...},"log":[...]})</p>
-        <input type="file" id="stateFile" accept=".json" class="file-input">
-        <p class="hint">読み込むと即座に画面に反映されます。編集はファイル側で行ってください。</p>
+        <p class="lede">JSONのゲーム状態を表示します。手札3枚とシンプルなステータスのみ。</p>
       </section>
 
       <section class="play-layout">
@@ -42,7 +35,11 @@
             <h2>プレイヤー</h2>
             <span id="turnLabel" class="status small">Turn 1</span>
           </div>
-          <div id="playerStats" class="stat-grid"></div>
+          <div class="hp-row" id="playerHP"></div>
+          <div class="token-row">
+            <span class="token shield" id="playerShield">0</span>
+            <span class="token energy" id="playerEnergy">0</span>
+          </div>
           <div>
             <h3>手札</h3>
             <ul id="playerHand" class="hand-list"></ul>
@@ -54,7 +51,11 @@
             <h2>敵</h2>
             <span id="enemyIntent" class="status small">-</span>
           </div>
-          <div id="enemyStats" class="stat-grid"></div>
+          <div class="hp-row" id="enemyHP"></div>
+          <div class="token-row">
+            <span class="token shield" id="enemyShield">0</span>
+            <span class="token energy" id="enemyEnergy">0</span>
+          </div>
           <div>
             <h3>ログ</h3>
             <ul id="logList" class="log-list"></ul>

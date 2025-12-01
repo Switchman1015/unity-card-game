@@ -349,3 +349,60 @@ body {
   margin-top: 6px;
   line-height: 1.4;
 }
+
+.token-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.hp-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hp-bar {
+  position: relative;
+  width: 240px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.hp-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #7ee0ff, #7b6bff);
+  border-radius: 999px;
+}
+
+.hp-label {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-weight: 700;
+  color: #0b1020;
+  border: 1px solid var(--border);
+}
+
+.token.shield {
+  background: #79c4ff;
+}
+
+.token.energy {
+  background: #ffd76e;
+}

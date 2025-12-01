@@ -1,30 +1,35 @@
-﻿const stateFile = document.getElementById("stateFile");
-const turnLabel = document.getElementById("turnLabel");
+﻿const turnLabel = document.getElementById("turnLabel");
 const enemyIntent = document.getElementById("enemyIntent");
-const playerStats = document.getElementById("playerStats");
-const enemyStats = document.getElementById("enemyStats");
+const playerHP = document.getElementById("playerHP");
+const enemyHP = document.getElementById("enemyHP");
+const playerShield = document.getElementById("playerShield");
+const playerEnergy = document.getElementById("playerEnergy");
+const enemyShield = document.getElementById("enemyShield");
+const enemyEnergy = document.getElementById("enemyEnergy");
 const playerHand = document.getElementById("playerHand");
 const logList = document.getElementById("logList");
 
+// JSONで外部管理する場合は window.MIXED_STATE などに注入してください。
 const sampleState = {
   turn: 1,
   player: {
     name: "プレイヤー",
     hp: 20,
+    maxHp: 25,
     shield: 3,
     energy: 3,
-    deckCount: 15,
-    discardCount: 2,
     hand: [
       { id: "c1", title: "テンペスト", cost: 2, type: "スペル", text: "敵に3ダメージ。既に呪文を使っていればエナジー+1。" },
       { id: "c2", title: "鉄壁", cost: 1, type: "防御", text: "シールドを5得る。連続して防御を使っていれば+2。" },
-      { id: "c3", title: "急襲", cost: 0, type: "スキル", text: "カードを1枚引く。このターン最初なら敵に1ダメージ。" }
+      { id: "c3", title: "急襲", cost: 0, type: "スキル", text: "カードを1枚引く。このターン最初なら敵に1ダメージ。" },
     ]
   },
   enemy: {
     name: "センチネル",
     hp: 18,
+    maxHp: 22,
     shield: 0,
+    energy: 2,
     intent: "次ターン: 4ダメージ"
   },
   log: [
@@ -34,19 +39,33 @@ const sampleState = {
   ]
 };
 
-function renderStats(container, entries) {
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function renderHP(container, current, max) {
   container.innerHTML = "";
-  entries.forEach(({ label, value }) => {
-    const div = document.createElement("div");
-    div.className = "stat";
-    div.innerHTML = `<strong>${label}</strong><br>${value}`;
-    container.appendChild(div);
-  });
+  const bar = document.createElement("div");
+  bar.className = "hp-bar";
+  const fill = document.createElement("div");
+  fill.className = "hp-fill";
+  const ratio = max > 0 ? clamp(current, 0, max) / max : 0;
+  fill.style.width = `${ratio * 100}%`;
+  bar.appendChild(fill);
+  const label = document.createElement("span");
+  label.className = "hp-label";
+  label.textContent = `${current}/${max}`;
+  container.append(bar, label);
+}
+
+function renderTokens(shieldEl, energyEl, shield, energy) {
+  shieldEl.textContent = shield ?? 0;
+  energyEl.textContent = energy ?? 0;
 }
 
 function renderHand(hand) {
   playerHand.innerHTML = "";
-  hand.forEach((card) => {
+  (hand || []).slice(0, 3).forEach((card) => {
     const li = document.createElement("li");
     li.className = "hand-card";
 
@@ -69,7 +88,7 @@ function renderHand(hand) {
 
 function renderLog(log) {
   logList.innerHTML = "";
-  log.forEach((line) => {
+  (log || []).forEach((line) => {
     const li = document.createElement("li");
     li.className = "log-item";
     li.textContent = line;
@@ -78,52 +97,23 @@ function renderLog(log) {
 }
 
 function renderState(state) {
-  turnLabel.textContent = `Turn ${state.turn ?? "-"}`;
-  enemyIntent.textContent = state.enemy?.intent || "-";
+  const s = state || {};
+  turnLabel.textContent = `Turn ${s.turn ?? "-"}`;
+  enemyIntent.textContent = s.enemy?.intent || "-";
 
-  renderStats(playerStats, [
-    { label: state.player?.name || "プレイヤー", value: "" },
-    { label: "HP", value: state.player?.hp ?? "-" },
-    { label: "シールド", value: state.player?.shield ?? 0 },
-    { label: "エナジー", value: state.player?.energy ?? 0 },
-    { label: "山札", value: state.player?.deckCount ?? 0 },
-    { label: "捨て札", value: state.player?.discardCount ?? 0 },
-  ]);
+  renderHP(playerHP, s.player?.hp ?? 0, s.player?.maxHp ?? s.player?.hp ?? 0);
+  renderHP(enemyHP, s.enemy?.hp ?? 0, s.enemy?.maxHp ?? s.enemy?.hp ?? 0);
 
-  renderStats(enemyStats, [
-    { label: state.enemy?.name || "敵", value: "" },
-    { label: "HP", value: state.enemy?.hp ?? "-" },
-    { label: "シールド", value: state.enemy?.shield ?? 0 },
-  ]);
+  renderTokens(playerShield, playerEnergy, s.player?.shield ?? 0, s.player?.energy ?? 0);
+  renderTokens(enemyShield, enemyEnergy, s.enemy?.shield ?? 0, s.enemy?.energy ?? 0);
 
-  renderHand(state.player?.hand || []);
-  renderLog(state.log || []);
+  renderHand(s.player?.hand || []);
+  renderLog(s.log || []);
 }
 
-function parseStateJson(text) {
-  const parsed = JSON.parse(text);
-  if (!parsed || typeof parsed !== "object") throw new Error("JSONが不正です");
-  return parsed;
+function loadState() {
+  // window.MIXED_STATE に上書きしたい状態をセットすればそのまま表示できます。
+  return window.MIXED_STATE || sampleState;
 }
 
-stateFile.addEventListener("change", (event) => {
-  const file = event.target.files?.[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const text = e.target?.result;
-    if (typeof text === "string") {
-      try {
-        const state = parseStateJson(text);
-        renderState(state);
-      } catch (err) {
-        alert(`読み込みに失敗しました: ${err.message}`);
-        console.error(err);
-      }
-    }
-  };
-  reader.readAsText(file, "utf-8");
-});
-
-// 初期表示
-renderState(sampleState);
+renderState(loadState());
