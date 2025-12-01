@@ -1,37 +1,29 @@
 ﻿const startButton = document.getElementById("startButton");
 const statusPill = document.getElementById("statusPill");
-const startMessage = document.getElementById("startMessage");
 let isStarting = false;
 
-function setStatus(text, intent = "ready") {
+function setStatus(text) {
   statusPill.textContent = text;
-  statusPill.dataset.intent = intent;
 }
 
 function startGame() {
   if (isStarting) return;
   isStarting = true;
-  document.body.classList.add("starting");
-  setStatus("Starting...", "active");
-  startMessage.textContent = "Loading prototype...";
   startButton.disabled = true;
-  startButton.textContent = "Loading";
+  startButton.textContent = "ロード中";
+  setStatus("準備中...");
 
-  // Placeholder for hooking into the real game scene
+  // 実際のゲームシーン遷移処理をここに接続してください
   setTimeout(() => {
-    startMessage.textContent = "Transition to the game scene here.";
-    setStatus("Ready", "ready");
+    setStatus("準備完了: ゲームシーンへ遷移してください");
     startButton.disabled = false;
-    startButton.textContent = "Start";
-    document.body.classList.remove("starting");
+    startButton.textContent = "ゲームスタート";
     isStarting = false;
-  }, 1000);
+  }, 800);
 }
 
 startButton.addEventListener("click", startGame);
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    startGame();
-  }
+  if (event.key === "Enter") startGame();
 });

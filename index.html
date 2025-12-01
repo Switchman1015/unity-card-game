@@ -1,62 +1,53 @@
 ﻿<!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Card Game | Title Screen</title>
+  <title>カードゲーム | タイトル</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <div class="bg-grain"></div>
-  <header class="top-bar">
-    <div class="logo-mark">
-      <span class="logo-icon">AC</span>
-      <span class="logo-type">Arcane Conflux</span>
+  <div class="bg"></div>
+  <header class="top">
+    <div class="brand">
+      <span class="brand-mark">AC</span>
+      <div class="brand-copy">
+        <span class="brand-name">Arcane Conflux</span>
+        <span class="brand-meta">プロトタイプ</span>
+      </div>
     </div>
-    <div class="pill">Prototype</div>
   </header>
 
-  <main class="hero">
-    <section class="hero-copy">
-      <p class="eyebrow">Original web card game</p>
-      <h1>Arcane Conflux</h1>
-      <p class="lede">Assemble a deck, chain abilities, and outplay rivals. This title screen will flow into the game scene once gameplay is wired up.</p>
-      <div class="cta-row">
-        <button id="startButton" class="cta primary">Start</button>
-        <button class="cta ghost" type="button">Deck builder</button>
-      </div>
-      <div class="meta-row">
-        <span class="hint">Press Enter to start</span>
-        <span id="statusPill" class="status-pill">Ready</span>
-      </div>
+  <main class="panel">
+    <section class="intro">
+      <p class="eyebrow">オリジナル カードゲーム</p>
+      <h1>タップで開始</h1>
+      <p class="lede">デッキを組んで、効果をつないで、ライバルを上回る。まずはタイトル画面から始めましょう。</p>
     </section>
 
-    <section class="hero-visual">
-      <div class="card-stack">
-        <div class="card shadow"></div>
-        <div class="card mid"></div>
-        <div class="card top">
-          <div class="card-header">
-            <span class="card-sigil">A</span>
-            <span class="card-type">Arcane</span>
-          </div>
-          <div class="card-body">
-            <p class="card-title">Tempest Surge</p>
-            <p class="card-text">Deal 3 damage. If you have played a spell this turn, gain 1 energy.</p>
-          </div>
-          <div class="card-footer">
-            <span class="pill small">Rare</span>
-            <span class="pill small">Cost 2</span>
-          </div>
+    <div class="cta-block">
+      <button id="startButton" class="btn primary">ゲームスタート</button>
+      <button class="btn ghost" type="button">デッキ管理（準備中）</button>
+      <p class="hint">画面をタップ、またはEnterキーでも開始できます。</p>
+      <p id="statusPill" class="status">待機中</p>
+    </div>
+
+    <section class="card-preview" aria-label="カードイメージ">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-label">サンプル</span>
+          <span class="card-cost">コスト 2</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">テンペスト</p>
+          <p class="card-text">敵に3ダメージ。今ターンすでに呪文を使っていればエナジー+1。</p>
         </div>
       </div>
-      <p id="startMessage" class="start-message">Waiting to start...</p>
     </section>
   </main>
 
-  <footer class="footnote">
-    <span>Keyboard ready</span>
-    <span>Art and sound placeholders</span>
+  <footer class="foot">
+    <span>アート・サウンドは後で差し替え</span>
   </footer>
 
   <script src="scripts/main.js"></script>
