@@ -1,19 +1,18 @@
 ﻿const turnLabel = document.getElementById("turnLabel");
+const stageNameEl = document.getElementById("stageName");
 const enemyIntent = document.getElementById("enemyIntent");
-const enemyName = document.getElementById("enemyName");
 const playerName = document.getElementById("playerName");
 const playerHP = document.getElementById("playerHP");
-const enemyHP = document.getElementById("enemyHP");
 const playerShield = document.getElementById("playerShield");
 const playerEnergy = document.getElementById("playerEnergy");
-const enemyShield = document.getElementById("enemyShield");
-const enemyEnergy = document.getElementById("enemyEnergy");
+const enemyUnits = document.getElementById("enemyUnits");
 const playerHand = document.getElementById("playerHand");
 const logList = document.getElementById("logList");
 
 // JSONで外部管理する場合は window.MIXED_STATE に上書きしてください。
 const sampleState = {
   turn: 1,
+  stage: "Astropolis",
   player: {
     name: "プレイヤー",
     hp: 20,
@@ -26,14 +25,11 @@ const sampleState = {
       { id: "c3", title: "急襲", cost: 0, type: "スキル", text: "カードを1枚引く。このターン最初なら敵に1ダメージ。" },
     ]
   },
-  enemy: {
-    name: "センチネル",
-    hp: 18,
-    maxHp: 22,
-    shield: 0,
-    energy: 2,
-    intent: "次ターン: 4ダメージ"
-  },
+  enemies: [
+    { id: "e1", name: "センチネル", hp: 18, maxHp: 22, shield: 0, energy: 2, intent: "次ターン: 4ダメージ" },
+    { id: "e2", name: "ゴーレム", hp: 15, maxHp: 18, shield: 2, energy: 1, intent: "防御+攻撃" },
+    { id: "e3", name: "コボルト", hp: 12, maxHp: 12, shield: 0, energy: 3, intent: "毒付与" },
+  ],
   log: [
     "対戦開始",
     "プレイヤーはエナジー3を得た",
@@ -63,6 +59,38 @@ function renderHP(container, current, max) {
 function renderTokens(shieldEl, energyEl, shield, energy) {
   shieldEl.textContent = shield ?? 0;
   energyEl.textContent = energy ?? 0;
+}
+
+function renderEnemies(enemies) {
+  enemyUnits.innerHTML = "";
+  (enemies || []).forEach((enemy) => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "enemy-unit";
+
+    const sprite = document.createElement("div");
+    sprite.className = "sprite enemy-sprite";
+
+    const nameEl = document.createElement("div");
+    nameEl.className = "unit-name";
+    nameEl.textContent = enemy.name || "敵";
+
+    const hpRow = document.createElement("div");
+    hpRow.className = "hp-row";
+    renderHP(hpRow, enemy.hp ?? 0, enemy.maxHp ?? enemy.hp ?? 0);
+
+    const tokens = document.createElement("div");
+    tokens.className = "token-row";
+    const shieldEl = document.createElement("span");
+    shieldEl.className = "token shield";
+    shieldEl.textContent = enemy.shield ?? 0;
+    const energyEl = document.createElement("span");
+    energyEl.className = "token energy";
+    energyEl.textContent = enemy.energy ?? 0;
+    tokens.append(shieldEl, energyEl);
+
+    wrapper.append(sprite, nameEl, hpRow, tokens);
+    enemyUnits.appendChild(wrapper);
+  });
 }
 
 function renderHand(hand) {
@@ -101,16 +129,15 @@ function renderLog(log) {
 function renderState(state) {
   const s = state || {};
   turnLabel.textContent = `Turn ${s.turn ?? "-"}`;
-  enemyIntent.textContent = s.enemy?.intent || "-";
+  stageNameEl.textContent = s.stage || "Stage";
+  enemyIntent.textContent = s.enemies?.[0]?.intent || "-";
   playerName.textContent = s.player?.name || "プレイヤー";
-  enemyName.textContent = s.enemy?.name || "敵";
 
   renderHP(playerHP, s.player?.hp ?? 0, s.player?.maxHp ?? s.player?.hp ?? 0);
-  renderHP(enemyHP, s.enemy?.hp ?? 0, s.enemy?.maxHp ?? s.enemy?.hp ?? 0);
 
   renderTokens(playerShield, playerEnergy, s.player?.shield ?? 0, s.player?.energy ?? 0);
-  renderTokens(enemyShield, enemyEnergy, s.enemy?.shield ?? 0, s.enemy?.energy ?? 0);
 
+  renderEnemies(s.enemies || []);
   renderHand(s.player?.hand || []);
   renderLog(s.log || []);
 }

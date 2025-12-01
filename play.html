@@ -26,36 +26,32 @@
       <section class="intro">
         <p class="eyebrow">Battle</p>
         <h1>対戦ビュー</h1>
-        <p class="lede">手札3枚・シンプルなステータスのみを表示するレイアウトです。</p>
+        <p class="lede">アリーナ中央にユニット、下に手札3枚。背景や立ち絵はプレースホルダーで表現しています。</p>
       </section>
 
-      <section class="battle-stage">
-        <div class="side enemy">
-          <div class="side-header">
-            <span class="side-name" id="enemyName">敵</span>
+      <section class="stage">
+        <div class="stage-info">
+          <div class="stage-name" id="stageName">Ruins</div>
+          <div class="stage-meta">
             <span id="enemyIntent" class="status small">-</span>
-          </div>
-          <div class="hp-row" id="enemyHP"></div>
-          <div class="token-row">
-            <span class="token shield" id="enemyShield">0</span>
-            <span class="token energy" id="enemyEnergy">0</span>
+            <span id="turnLabel" class="status small">Turn 1</span>
           </div>
         </div>
 
-        <div class="arena">
-          <span id="turnLabel" class="status">Turn 1</span>
+        <div class="lane">
+          <div class="unit player-unit">
+            <div class="sprite player-sprite"></div>
+            <div class="unit-name" id="playerName">プレイヤー</div>
+            <div class="hp-row" id="playerHP"></div>
+            <div class="token-row">
+              <span class="token shield" id="playerShield">0</span>
+              <span class="token energy" id="playerEnergy">0</span>
+            </div>
+          </div>
+
           <div class="arena-mark">VS</div>
-        </div>
 
-        <div class="side player">
-          <div class="side-header">
-            <span class="side-name" id="playerName">プレイヤー</span>
-          </div>
-          <div class="hp-row" id="playerHP"></div>
-          <div class="token-row">
-            <span class="token shield" id="playerShield">0</span>
-            <span class="token energy" id="playerEnergy">0</span>
-          </div>
+          <div id="enemyUnits" class="enemy-list"></div>
         </div>
       </section>
 
